@@ -25,23 +25,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.makeKeyAndVisible()
         let layout = UICollectionViewFlowLayout()
         window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
-        
-        // remove black bar beneath navbar
+
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(),for: .default)
-        
+        UINavigationBar.appearance().tintColor = Constants.awsRed
+
         application.statusBarStyle = .lightContent
 
         // add darker red to status bar
-        let statusBarView = UIView()
-        statusBarView.backgroundColor = UIColor.rgb(red: 194, green: 40, blue: 40)
-        window?.addSubview(statusBarView)
-        window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarView)
-        window?.addConstraintsWithFormat(format: "V:|[v0(30)]", views: statusBarView)
-        
+        let statusBarBackgroundView = UIView()
+        statusBarBackgroundView.backgroundColor = Constants.awsDarkRed
+        window?.addSubview(statusBarBackgroundView)
+        statusBarBackgroundView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(32)
+        }
         return true
     }
-    
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

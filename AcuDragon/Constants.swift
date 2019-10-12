@@ -1,19 +1,20 @@
 //
 //  Constants.swift
 //  AcuDragon
+
 //
 //  Created by Emiko Clark on 4/6/18.
 //  Copyright © 2018 Emiko Clark. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Constants {
     static let baseUrlString = "https://www.googleapis.com/youtube/v3/search?key="
     static let myAPIKey = "AIzaSyCz7ChsZALe88gbZuQyexQY82oQ1de6qZU"
-
-//     static let myAPIKey = "AIzaSyDmqaPH8yJO7uMfTUXz9AKxP5zdb79ym0Q"
-//     static let myECChannel = "UCD5kT8GTKnbYl9WxgnLM0aA"
+    static let pageNum = 15
+    static let awsRed = UIColor.rgb(red: 194, green: 40, blue: 40)
+    static let awsDarkRed = UIColor.rgb(red: 160, green: 40, blue: 40)
 }
 
 
@@ -23,5 +24,8 @@ struct Constants {
  // returns playlist for ec channel 50 items
  https://www.googleapis.com/youtube/v3/playlistItems?playlistId=UUD5kT8GTKnbYl9WxgnLM0aA&key=AIzaSyCz7ChsZALe88gbZuQyexQY82oQ1de6qZU&part=snippet&maxResults=50
  
+ 
+ //     static let myAPIKey = "AIzaSyDmqaPH8yJO7uMfTUXz9AKxP5zdb79ym0Q"
+ //     static let myECChannel = "UCD5kT8GTKnbYl9WxgnLM0aA"
  ==================================
  */

@@ -23,6 +23,8 @@ class Items: Decodable {
 
 struct Id: Decodable {
     var playlistId: String?
+    var kind: String?
+    var videoId: String?
 }
 
 struct Snippet: Decodable {

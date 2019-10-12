@@ -1,0 +1,137 @@
+{
+ "kind": "youtube#searchListResponse",
+ "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/FdRbnBo4vpgohaoweOisKSDrO7M\"",
+ "regionCode": "US",
+ "pageInfo": {
+  "totalResults": 4,
+  "resultsPerPage": 5
+ },
+ "items": [
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/4u2yEcJX6qW4oAcxk02qmVTvX4I\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "ArDX995Z7jw"
+   },
+   "snippet": {
+    "publishedAt": "2016-06-28T13:58:00.000Z",
+    "channelId": "UCVuPZ75EboIyD4Z1ansIVBg",
+    "title": "Qigong for Summer - Fire Element (Heart and Small Intestine)",
+    "description": "2 Fire Element Qigong exercises from 2 different sets. Helps the energies of the Heart and Small Intestine. Beneficial to do year round especially in the summer.",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/ArDX995Z7jw/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/ArDX995Z7jw/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/ArDX995Z7jw/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "Acudragon",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/SMEBiO3Qq20KnUcEehEAv-pGrhI\"",
+   "id": {
+    "kind": "youtube#channel",
+    "channelId": "UCVuPZ75EboIyD4Z1ansIVBg"
+   },
+   "snippet": {
+    "publishedAt": "2015-12-02T18:02:35.000Z",
+    "channelId": "UCVuPZ75EboIyD4Z1ansIVBg",
+    "title": "Acudragon",
+    "description": "",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/-J_Ugboq4xHs/AAAAAAAAAAI/AAAAAAAAAAA/g-rNys6IIrQ/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/-J_Ugboq4xHs/AAAAAAAAAAI/AAAAAAAAAAA/g-rNys6IIrQ/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/-J_Ugboq4xHs/AAAAAAAAAAI/AAAAAAAAAAA/g-rNys6IIrQ/s800-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     }
+    },
+    "channelTitle": "Acudragon",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/S08ElMysoc5iQZIfaOQ0Uxs36r0\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "CL0dPMG3ME4"
+   },
+   "snippet": {
+    "publishedAt": "2015-12-02T19:05:37.000Z",
+    "channelId": "UCVuPZ75EboIyD4Z1ansIVBg",
+    "title": "Two Minute Warmup Exercise",
+    "description": "A full body warmup you can do before running, Qigong, T'ai Chi, martial arts and other exercises.",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/CL0dPMG3ME4/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/CL0dPMG3ME4/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/CL0dPMG3ME4/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "Acudragon",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/Y0SGKFP-DTcP1h61sws8EPr4e1Y\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "xB9523UotRs"
+   },
+   "snippet": {
+    "publishedAt": "2016-06-28T13:51:02.000Z",
+    "channelId": "UCVuPZ75EboIyD4Z1ansIVBg",
+    "title": "Summer Tips",
+    "description": "Acupressure, Acuformula, aromatherapy tips to help with the summer air conditioning syndrome.",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/xB9523UotRs/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/xB9523UotRs/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/xB9523UotRs/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "Acudragon",
+    "liveBroadcastContent": "none"
+   }
+  }
+ ]
+}

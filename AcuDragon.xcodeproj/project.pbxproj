@@ -18,6 +18,7 @@
 		0027C23B201A36E300B8E6DA /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0027C23A201A36E300B8E6DA /* Video.swift */; };
 		003E60A9207721E100BDDF16 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003E60A8207721E100BDDF16 /* ApiClient.swift */; };
 		00478BBC20772D5E00C69D46 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00478BBB20772D5E00C69D46 /* Constants.swift */; };
+		0052879621E689AC00B9CB21 /* aws1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0052879521E689AC00B9CB21 /* aws1.txt */; };
 		005391092024F01C00D58FD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 005391082024F01C00D58FD7 /* GoogleService-Info.plist */; };
 		005F50992079E5610096AE05 /* secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005F50982079E5610096AE05 /* secret.swift */; };
 		67615D83B77D8E8FAD83FBDE /* Pods_AcuDragon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C55E077913BF37EB4F4E31B /* Pods_AcuDragon.framework */; };
@@ -37,6 +38,7 @@
 		0027C23A201A36E300B8E6DA /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		003E60A8207721E100BDDF16 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ApiClient.swift; path = AcuDragon/ApiClient.swift; sourceTree = SOURCE_ROOT; };
 		00478BBB20772D5E00C69D46 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = AcuDragon/Constants.swift; sourceTree = SOURCE_ROOT; };
+		0052879521E689AC00B9CB21 /* aws1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = aws1.txt; sourceTree = "<group>"; };
 		005391082024F01C00D58FD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		005F50982079E5610096AE05 /* secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secret.swift; sourceTree = "<group>"; };
 		25293DFD10B8002E67E68098 /* Pods-AcuDragon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuDragon.release.xcconfig"; path = "Pods/Target Support Files/Pods-AcuDragon/Pods-AcuDragon.release.xcconfig"; sourceTree = "<group>"; };
@@ -66,6 +68,8 @@
 				0023F0872017EF3300D62A51 /* View */,
 				0023F08A2017EF7900D62A51 /* Controller */,
 				0023F0842017EDE400D62A51 /* helpers */,
+				0023F07C2016BBE800D62A51 /* Info.plist */,
+				005391082024F01C00D58FD7 /* GoogleService-Info.plist */,
 				0023F06E2016BBE800D62A51 /* Products */,
 				5D1585896559F45B30FEB2B3 /* Pods */,
 				6561D0DEE6D21AAB74B8854E /* Frameworks */,
@@ -84,12 +88,11 @@
 			isa = PBXGroup;
 			children = (
 				0023F0792016BBE800D62A51 /* LaunchScreen.storyboard */,
-				00478BBB20772D5E00C69D46 /* Constants.swift */,
 				0023F0742016BBE800D62A51 /* Main.storyboard */,
-				003E60A8207721E100BDDF16 /* ApiClient.swift */,
-				0023F07C2016BBE800D62A51 /* Info.plist */,
-				005391082024F01C00D58FD7 /* GoogleService-Info.plist */,
 				0023F0772016BBE800D62A51 /* Assets.xcassets */,
+				0052879521E689AC00B9CB21 /* aws1.txt */,
+				00478BBB20772D5E00C69D46 /* Constants.swift */,
+				003E60A8207721E100BDDF16 /* ApiClient.swift */,
 			);
 			path = AcuDragon;
 			sourceTree = "<group>";
@@ -156,7 +159,6 @@
 				0023F06A2016BBE800D62A51 /* Frameworks */,
 				0023F06B2016BBE800D62A51 /* Resources */,
 				F01228A008F60B6DD7BACEEE /* [CP] Embed Pods Frameworks */,
-				00F50DCEA474BA7CE3788B09 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,6 +210,7 @@
 			files = (
 				0023F07B2016BBE800D62A51 /* LaunchScreen.storyboard in Resources */,
 				005391092024F01C00D58FD7 /* GoogleService-Info.plist in Resources */,
+				0052879621E689AC00B9CB21 /* aws1.txt in Resources */,
 				0023F0782016BBE800D62A51 /* Assets.xcassets in Resources */,
 				0023F0762016BBE800D62A51 /* Main.storyboard in Resources */,
 			);
@@ -216,24 +219,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		00F50DCEA474BA7CE3788B09 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AcuDragon/Pods-AcuDragon-resources.sh",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AcuDragon/Pods-AcuDragon-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		CA054D711EB006D9228B2E7C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -429,7 +414,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X9KW2SQ39Q;
-				INFOPLIST_FILE = AcuDragon/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.emikoclark.AcuDragon;
@@ -446,7 +431,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X9KW2SQ39Q;
-				INFOPLIST_FILE = AcuDragon/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.emikoclark.AcuDragon;

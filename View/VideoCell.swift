@@ -7,172 +7,333 @@
 //
 
 import UIKit
+import Foundation
+import SnapKit
 
-//protocol reloadDataDelegate {
-//    func updateUI()
-//}
+class VideoCell: UICollectionViewCell {
 
-class VideoCell: BaseCell {
-    
-    var videoItem = Items()
-    var delegate: reloadDataDelegate?
-    
-    enum MyKeys: String, CodingKey {
-        case thumbnail = "thumbnails"
-        case urlString = "url"
-    }
-    
-    var video: Video? {
-        didSet {
-            
-            dump(videoItem)
-//            let videoItem = Items()
-            
-//            if let profile_image_name  =  videoItem.snippet {
-//                downloadImage(imageType: "profile_image_name", urlString: profile_image_name)
-//            }
-            
-            if let thumbnailUrlString = videoItem.snippet?.thumbnails?.high?.url {
-                downloadImage(imageType: "videoThumbnail", urlString: thumbnailUrlString)
-            }
+    let titleFont = UIFont.boldSystemFont(ofSize: 14)
+    let subtitleFont = UIFont.systemFont(ofSize: 14)
+    let screenWidth = UIScreen.main.bounds.width
+    let widthOffset = 10
+    let verticalOffset = 6
 
-            titleLabel.text = videoItem.snippet?.title
+//    var calcStackviewHeight: Int {
+//        // calculate stackview height to adjust videoCell
+//        return 75
+//    }
 
-            if let channelSubtitle = videoItem.snippet?.description {
-                subTitleTextView.text = channelSubtitle
-            }
-
-            // estimate height for titleLabelText
-            if let title = videoItem.snippet?.title {
-                let size = CGSize(width: frame.size.width - 16 - 44 - 8 - 16, height: 1000)
-                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-                let estimatedRect = NSString(string: title).boundingRect(with: size, options: options, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 17)] , context: nil)
-
-                if estimatedRect.size.height > 21 {
-                    titleLabelHeightConstraint?.constant = 44
-                } else {
-                    titleLabelHeightConstraint?.constant = 21
-                }
-                print("estimatedRect:", estimatedRect)
-                titleLabel.text = title
-            }
-            
-            if let channelDescription = videoItem.snippet?.description {
-                let size = CGSize(width: frame.size.width - 16 - 44 - 8 - 16, height: 1000)
-                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-                let estimatedRect = NSString(string: channelDescription).boundingRect(with: size, options: options, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 17)] , context: nil)
-                
-                if estimatedRect.size.height > 21 {
-                    titleLabelHeightConstraint?.constant = 44
-                } else {
-                    titleLabelHeightConstraint?.constant = 21
-                }
-                print("estimatedRect:", estimatedRect)
-                subTitleTextView.text = channelDescription
-            }
-
-            // estimate height for subTitle
-            // estimate height for VideoCell (video+16+titleLabelHeight+8+subTitleLabelHeight+16)
-            
-            if let thumbnailImageUrlString = videoItem.snippet?.thumbnails?.high?.url {
-                downloadImage(imageType: "thumbnail", urlString: thumbnailImageUrlString)
-            }
-        }
-    }
-    
-    var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 22
-        imageView.layer.masksToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        imageView.image = #imageLiteral(resourceName: "channelDragonPlaceholder")
-        return imageView
+    let thumbnailImageView: UIImageView = {
+        let imgView = UIImageView()
+        imgView.backgroundColor = .lightGray
+        imgView.alpha = 0.3
+        imgView.image = UIImage(named: "channelDragonPlaceholder")
+        imgView.contentMode = .scaleAspectFit
+        imgView.tintColor = .blue
+        return imgView
     }()
-    
-    let titleLabel: UILabel = {
+
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.font = titleFont
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.sizeToFit()
+        label.text = "title"
         return label
     }()
-    
-    let subTitleTextView: UITextView = {
-        let textview = UITextView()
-        textview.translatesAutoresizingMaskIntoConstraints = false
-        textview.textContainerInset = UIEdgeInsetsMake(0, -4, 0, 0)
-        textview.textColor = UIColor.lightGray
-        return textview
+
+    private lazy var subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = subtitleFont
+        label.text = "subtitle - AcuDragon[23352:488337] Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0x7fd604800000>."
+        label.numberOfLines = 0
+        return label
     }()
-    
-    let separaterView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 230/255)
-        return view
+
+    private lazy var stackview: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
+        sv.axis = .vertical
+        sv.distribution = .fill
+        sv.alignment = .leading
+        sv.spacing = 3
+        return sv
     }()
-    
-    let thumbnailImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.cyan
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "dragonPlaceholder.jpg")
-        return imageView
+
+    let separator: UIView = {
+        let line = UIView()
+        line.backgroundColor = .lightGray
+        return line
     }()
-    
-    var titleLabelHeightConstraint: NSLayoutConstraint?
-    
-    override func setupViews() {
-        backgroundColor = UIColor.white
-        addSubview(thumbnailImageView)
-        addSubview(separaterView)
-        addSubview(profileImageView)
-        addSubview(titleLabel)
-        addSubview(subTitleTextView)
-        
-        // constraints
-        addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: thumbnailImageView)
-        addConstraintsWithFormat(format: "H:|-16-[v0(44)]-[v1]-16-|", views: profileImageView, titleLabel)
-        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, profileImageView, separaterView)
-        addConstraintsWithFormat(format: "H:|[v0]|", views: separaterView)
-        
-        // titleLabel constraints
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: thumbnailImageView, attribute: .bottom, multiplier: 1, constant: 8))
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .left , relatedBy: .equal, toItem: profileImageView, attribute: .right, multiplier: 1, constant: 8))
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .right , relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
-        
-        titleLabelHeightConstraint = (NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 44))
-        addConstraint(titleLabelHeightConstraint!)
-        
-        // subTitleTextView constraints
-        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1, constant: 4))
-        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .left , relatedBy: .equal, toItem: profileImageView, attribute: .right, multiplier: 1, constant: 8))
-        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .right , relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: subTitleTextView , attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 30))
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
     }
-    
-    func downloadImage(imageType: String, urlString: String) {
-        if let url = URL(string: urlString) {
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    print(error!)
-                    return
-                }
-                guard let data = data else { return }
-                
-                DispatchQueue.main.async() {
-                    if imageType == "videoThumbnail" {
-                        self.thumbnailImageView.image = UIImage(data: data)
-                    } else if imageType == "profile_image" {
-                        self.profileImageView.image = UIImage(data: data)
-                    }
-                    self.delegate?.updateUI()
-                }
-            }.resume()
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func setupViews() {
+        contentView.addSubview(thumbnailImageView)
+        contentView.addSubview(stackview)
+        contentView.addSubview(separator)
+
+        thumbnailImageView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(videoHeight)
+        }
+
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(widthOffset)
+            make.trailing.equalToSuperview().offset(-widthOffset)
+        }
+
+        subtitleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(widthOffset)
+            make.trailing.equalToSuperview().offset(-widthOffset)
+        }
+
+        stackview.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(thumbnailImageView.snp.bottom).offset(verticalOffset)
+        }
+
+        separator.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(stackview.snp.bottom).offset(3)
+            make.height.equalTo(1)
         }
     }
-    
+
+//    func downloadImage(imageType: String, urlString: String) {
+//        if let url = URL(string: urlString) {
+//            URLSession.shared.dataTask(with: url) { (data, response, error) in
+//                if error != nil {
+//                    print(error!)
+//                    return
+//                }
+//                guard let data = data else { return }
+//
+//                DispatchQueue.main.async() {
+//                    self.thumbnailImageView.image = UIImage(data: data)
+//                    self.delegate?.updateUI()
+//                }
+//            }.resume()
+//        }
+//    }
 }
+
+//==============================================
+//var stackView: UIStackView = {
+//    let stackview = UIStackView()
+//    stackview.backgroundColor = UIColor.yellow
+//    stackview.translatesAutoresizingMaskIntoConstraints = false
+//    stackview.axis = .horizontal
+//    stackview.distribution = .fillEqually
+//    stackview.alignment = .fill
+//    stackview.spacing = 5
+//    return stackview
+//}()
+//==============================================
+// b4 simplifying to bare minimum
+//override func setupViews() {
+//    backgroundColor = UIColor.white
+//
+//    // add title and subtitle into stackview
+//    titleTextView.text = "Test Title Acudragon"
+//    subTitleTextView.text = "Test2 subTitleTextView.text = Test 1"
+//
+//    stackView.addSubview(titleTextView)
+//    stackView.addSubview(subTitleTextView)
+//
+//    // add views
+//    addSubview(stackView)
+//    addSubview(thumbnailImageView)
+//    addSubview(separaterView)
+//
+//    // snapkit constraints =====================
+//    thumbnailImageView.snp.makeConstraints { (make) in
+//        make.left.top.right.equalTo(0)
+//        make.height.equalTo(VideoCell.videoHeight)
+//    }
+//
+//    // add constraints for stackview
+//    stackView.snp.makeConstraints { (make) in
+//        make.left.right.equalTo(0)
+//        make.top.equalTo(thumbnailImageView.snp.bottom)
+//    }
+//
+//    separaterView.snp.makeConstraints { (make) in
+//        make.height.equalTo(2)
+//        make.left.right.equalTo(0)
+//        make.top.equalTo(stackView.snp.bottom).offset(6)
+//    }
+//}
+
+
+//==============================================
+// backup v2 before snapkit ====================
+//class VideoCell: BaseCell {
+//
+//    var videoItem = Items()
+//    var delegate: reloadDataDelegate?
+//
+//    enum MyKeys: String, CodingKey {
+//        case thumbnail = "thumbnails"
+//        case urlString = "url"
+//    }
+//
+//    var video: Video? {
+//        didSet {
+//
+//            dump(videoItem)
+//            //            let videoItem = Items()
+//
+//            //            if let profile_image_name  =  videoItem.snippet {
+//            //                downloadImage(imageType: "profile_image_name", urlString: profile_image_name)
+//            //            }
+//
+//            if let thumbnailUrlString = videoItem.snippet?.thumbnails?.high?.url {
+//                downloadImage(imageType: "videoThumbnail", urlString: thumbnailUrlString)
+//            }
+//
+//            titleLabel.text = videoItem.snippet?.title
+//
+//            if let channelSubtitle = videoItem.snippet?.description {
+//                subTitleTextView.text = channelSubtitle
+//            }
+//
+//            // estimate height for titleLabelText
+//            if let title = videoItem.snippet?.title {
+//                let size = CGSize(width: frame.size.width - 16 - 44 - 8 - 16, height: 1000)
+//                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+//                let estimatedRect = NSString(string: title).boundingRect(with: size, options: options, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 17)] , context: nil)
+//
+//                if estimatedRect.size.height > 21 {
+//                    titleLabelHeightConstraint?.constant = 44
+//                } else {
+//                    titleLabelHeightConstraint?.constant = 21
+//                }
+//                print("estimatedRect:", estimatedRect)
+//                titleLabel.text = title
+//            }
+//
+//            if let channelDescription = videoItem.snippet?.description {
+//                let size = CGSize(width: frame.size.width - 16 - 44 - 8 - 16, height: 1000)
+//                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+//                let estimatedRect = NSString(string: channelDescription).boundingRect(with: size, options: options, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 17)] , context: nil)
+//
+//                if estimatedRect.size.height > 21 {
+//                    titleLabelHeightConstraint?.constant = 44
+//                } else {
+//                    titleLabelHeightConstraint?.constant = 21
+//                }
+//                print("estimatedRect:", estimatedRect)
+//                subTitleTextView.text = channelDescription
+//            }
+//
+//            // estimate height for subTitle
+//            // estimate height for VideoCell (video+16+titleLabelHeight+8+subTitleLabelHeight+16)
+//
+//            if let thumbnailImageUrlString = videoItem.snippet?.thumbnails?.high?.url {
+//                downloadImage(imageType: "thumbnail", urlString: thumbnailImageUrlString)
+//            }
+//        }
+//    }
+//
+//    var profileImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.layer.cornerRadius = 22
+//        imageView.layer.masksToBounds = true
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.image = #imageLiteral(resourceName: "channelDragonPlaceholder")
+//        return imageView
+//    }()
+//
+//    let titleLabel: UILabel = {
+//        let label = UILabel()
+//        label.numberOfLines = 0
+//        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        label.sizeToFit()
+//        return label
+//    }()
+//
+//    let subTitleTextView: UITextView = {
+//        let textview = UITextView()
+//        textview.translatesAutoresizingMaskIntoConstraints = false
+//        textview.textContainerInset = UIEdgeInsetsMake(0, -4, 0, 0)
+//        textview.textColor = UIColor.lightGray
+//        return textview
+//    }()
+//
+//    let separaterView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 230/255)
+//        return view
+//    }()
+//
+//    let thumbnailImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.backgroundColor = UIColor.cyan
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.clipsToBounds = true
+//        imageView.image = UIImage(named: "dragonPlaceholder.jpg")
+//        return imageView
+//    }()
+//
+//    var titleLabelHeightConstraint: NSLayoutConstraint?
+//
+//    override func setupViews() {
+//        backgroundColor = UIColor.white
+//        addSubview(thumbnailImageView)
+//        addSubview(separaterView)
+//        addSubview(profileImageView)
+//        addSubview(titleLabel)
+//        addSubview(subTitleTextView)
+//
+//        // constraints
+//        addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: thumbnailImageView)
+//        addConstraintsWithFormat(format: "H:|-16-[v0(44)]-[v1]-16-|", views: profileImageView, titleLabel)
+//        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, profileImageView, separaterView)
+//        addConstraintsWithFormat(format: "H:|[v0]|", views: separaterView)
+//
+//        // titleLabel constraints
+//        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: thumbnailImageView, attribute: .bottom, multiplier: 1, constant: 8))
+//        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .left , relatedBy: .equal, toItem: profileImageView, attribute: .right, multiplier: 1, constant: 8))
+//        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .right , relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
+//
+//        titleLabelHeightConstraint = (NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 44))
+//        addConstraint(titleLabelHeightConstraint!)
+//
+//        // subTitleTextView constraints
+//        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1, constant: 4))
+//        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .left , relatedBy: .equal, toItem: profileImageView, attribute: .right, multiplier: 1, constant: 8))
+//        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .right , relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
+//        addConstraint(NSLayoutConstraint(item: subTitleTextView , attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 30))
+//    }
+//
+//    func downloadImage(imageType: String, urlString: String) {
+//        if let url = URL(string: urlString) {
+//            URLSession.shared.dataTask(with: url) { (data, response, error) in
+//                if error != nil {
+//                    print(error!)
+//                    return
+//                }
+//                guard let data = data else { return }
+//
+//                DispatchQueue.main.async() {
+//                    if imageType == "videoThumbnail" {
+//                        self.thumbnailImageView.image = UIImage(data: data)
+//                    } else if imageType == "profile_image" {
+//                        self.profileImageView.image = UIImage(data: data)
+//                    }
+//                    self.delegate?.updateUI()
+//                }
+//                }.resume()
+//        }
+//    }
+//
+//}
 
 ////======= backup v1 ======
 ////
